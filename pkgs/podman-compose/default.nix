@@ -13,12 +13,6 @@ buildPythonApplication rec {
 
   doCheck = false;
 
-#  installPhase = ''
-#    mkdir -p $out/bin
-#    mv ${name}.py $out/bin/${name}
-#    patchShebangs $out/bin/${name}
-#  '';
-
   propagatedBuildInputs = [
     pythonPackages.pyyaml
   ];
