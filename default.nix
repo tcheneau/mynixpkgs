@@ -1,8 +1,5 @@
-{
-  ...
-}:
+{ pkgs , ...  }:
 
-with pkgs;
 
 let
   packages = rec {
