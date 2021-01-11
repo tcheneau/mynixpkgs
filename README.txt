@@ -10,11 +10,25 @@ https://nix-tutorial.gitlabpages.inria.fr/nix-tutorial/experiment-packaging.html
 
 ```bash
 git clone 
-nix-build . -A podman_compose
+nix-build . -A environment.systemPackages
 ```
 
 # Adding it to your NixOS system
 
 In the */etc/nixos/configuration.nix*:
 
+```nix
+
+{ lib, config, pkgs, ... }:
+
+{
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      (fetchGit { url = "https://github.com/tcheneau/mynixpkgs"; ref = "beb9022756b47162fb5254370194b0febc5f0543"; } + "/default.nix")
+    ];
+  :
+```
+
+Here, change the ref to the hash of the git commmit you are interested in. This will install all my custom packages.
 
