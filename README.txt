@@ -2,6 +2,9 @@
 
 Disclamer: it probably is not the Nix/NixOS way
 
+This repository is a "nix overlay" that you might want to use to add extra
+derivations/packages to your system. It will enable you to quickly add more
+derivations to your system.
 
 Heavily inspired from the following tutorials/blogs:
 
@@ -40,14 +43,17 @@ nix-build -E 'with import <nixpkgs> {} ; python3Packages.callPackage ./default.n
 In the */etc/nixos/configuration.nix*:
 
 ```nix
+# ellipsis are just text I omitted
 
 ...
 
+let
+  nixpkgs-tcheneau = import (fetchGit { url = "https://github.com/tcheneau/mynixpkgs"; ref = "master"; });
+in
 {
-  # replace the ref with the reference you want to pull!
-  nixpkgs.config.packageOverrides = {
-    import (fetchGit { url = "https://github.com/tcheneau/mynixpkgs"; ref = "8f4d3265a37fb4d3eb7409829a4d9c5006c707da"; } + "/default.nix") pkgs
-  }
+  nixpkgs.overlays = [
+    nixpkgs-tcheneau
+  ];
 
   environment.systemPackages = [
 
@@ -58,12 +64,9 @@ In the */etc/nixos/configuration.nix*:
     ...
   ];
 
-
   ...
-
+}
 ```
-
-Here, change the ref to the hash of the git commmit you are interested in. This will install all my custom packages.
 
 # Side note
 
