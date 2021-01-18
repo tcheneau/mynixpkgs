@@ -23,6 +23,8 @@ stdenv.mkDerivation rec {
     };
 
   nativeBuildInputs = [ makeWrapper dpkg ];
+  
+  ld_preload = ./fakeopenat.c;
 
   unpackPhase = ''
     mkdir pkg
@@ -41,13 +43,21 @@ stdenv.mkDerivation rec {
     ln -s ${stdenv.cc.cc.lib}/lib/libstdc++.so.6 $out/lib/
 #    ln -s ${lib.getLib systemd}/lib/libudev.so.1 $out/lib/libudev.so.0
 
+    # allow changes in hardcoded path
+    gcc -fPIC -shared -o fakeopenat.so $ld_preload -ldl -D_GNU_SOURCE
+    mv fakeopenat.so $out/lib/
+
+
     ${patchelf}/bin/patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       $out/bin/zed_free
      wrapProgram $out/bin/zed_free \
+       --prefix LD_PRELOAD : $out/lib/fakeopenat.so \
+       --prefix NIX_ZED_PREFIX : $out/share/ \
+       --prefix LD_LIBRARY_PATH : $out/lib:${LD_LIBRARY_PATH} \
        --prefix QT_PLUGIN_PATH : ${qt5.qtbase}/${qt5.qtbase.qtPluginPrefix} \
-#       --prefix QT_DEBUG_PLUGINS 1 \
-       --prefix LD_LIBRARY_PATH : $out/lib:${LD_LIBRARY_PATH}
+       --prefix QT_DEBUG_PLUGINS : 1
+#       --prefix LD_DEBUG : bindings \
 
 #
 #    for binary in StarUML Brackets-node; do
