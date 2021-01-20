@@ -53,11 +53,12 @@ stdenv.mkDerivation rec {
       $out/bin/zed_free
      wrapProgram $out/bin/zed_free \
        --prefix LD_PRELOAD : $out/lib/fakesyscalls.so \
-       --prefix LD_DEBUG : bindings \
        --prefix NIX_ZED_PREFIX : $out/share/ \
        --prefix LD_LIBRARY_PATH : $out/lib:${LD_LIBRARY_PATH} \
        --prefix QT_PLUGIN_PATH : ${qt5.qtbase}/${qt5.qtbase.qtPluginPrefix} \
        --prefix QT_DEBUG_PLUGINS : 1
+       #--prefix LD_DEBUG : bindings \
+       #--prefix LD_DEBUG : bindings,symbols \
 
 #
 #    for binary in StarUML Brackets-node; do
