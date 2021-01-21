@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
       $out/bin/zed_free
      wrapProgram $out/bin/zed_free \
        --prefix LD_PRELOAD : $out/lib/fakesyscalls.so \
-       --prefix NIX_ZED_PREFIX : $out/share/ \
+       --prefix NIX_ZED_USR_PREFIX : $out/share/ \
+       --prefix NIX_ZED_ETC_PREFIX : $out/share/ \
        --prefix LD_LIBRARY_PATH : $out/lib:${LD_LIBRARY_PATH} \
        --prefix QT_PLUGIN_PATH : ${qt5.qtbase}/${qt5.qtbase.qtPluginPrefix} \
        --prefix QT_DEBUG_PLUGINS : 1
