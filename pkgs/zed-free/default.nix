@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper dpkg ];
   
   ld_preload = ./fakesyscalls.c;
+  prepare_primx = ./prepare-primx.sh;
 
   unpackPhase = ''
     mkdir pkg
@@ -35,6 +36,9 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     mv usr/bin/zed_free $out/bin
+
+    cp ${prepare_primx} $out/bin/$(basename ${prepare_primx})
+    chmod 755 $out/bin/$(basename ${prepare_primx})
 
     mkdir -p $out/share
     mv usr/share/* $out/share
@@ -52,6 +56,7 @@ stdenv.mkDerivation rec {
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       $out/bin/zed_free
      wrapProgram $out/bin/zed_free \
+       --run $out/bin/$(basename ${prepare_primx}) \
        --prefix LD_PRELOAD : $out/lib/fakesyscalls.so \
        --prefix NIX_ZED_USR_PREFIX : $out/share/ \
        --prefix NIX_ZED_ETC_PREFIX : /tmp/primx/ \
