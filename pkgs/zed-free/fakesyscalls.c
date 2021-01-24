@@ -17,9 +17,13 @@
 #define HARD_USR_PREFIX "/usr/share"
 #define HARD_ETC_PREFIX "/etc/primx"
 
+
+
 typedef FILE * (* orig_fopen64_f_type)(const char *filename, const char *type);
 
 typedef int (* orig__openat64_2_f_type) (int dirfd, const char *path, int flags);
+
+typedef int (* orig_open64_f_type) (const char *file, int oflag, ...);
 
 typedef int (*orig_openat_f_type) (int fd, const char * path, int oflag);
 
@@ -80,6 +84,25 @@ int __openat64_2(int dirfd, const char *path, int flags) {
 	return orig__openat64_2(dirfd, buf, flags);
 }
 
+int open64(const char *file, int oflag, ...) {
+	INIT_MATCH_AND_REPLACE(file);
+
+	int mode = 0;
+
+	va_list arg;
+    va_start (arg, oflag);
+    mode = va_arg (arg, int);
+    va_end (arg);
+
+	orig_open64_f_type orig_open64;
+	orig_open64 = (orig_open64_f_type)dlsym(RTLD_NEXT, "open64");
+
+	MATCH_AND_REPLACE(file, "open64", HARD_USR_PREFIX, "NIX_ZED_USR_PREFIX");
+	MATCH_AND_REPLACE(file, "open64", HARD_ETC_PREFIX, "NIX_ZED_ETC_PREFIX");
+
+	return orig_open64(buf, oflag, mode);
+}
+
 int openat64 (int fd, const char * path, int oflag, ...) {
 	INIT_MATCH_AND_REPLACE(path);
 
@@ -98,6 +121,8 @@ int openat64 (int fd, const char * path, int oflag, ...) {
 
 	return orig_openat64(fd, buf, oflag, mode);
 }
+
+
 
 int openat(int fd, const char * path, int oflag) {
 	INIT_MATCH_AND_REPLACE(path);
