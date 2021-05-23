@@ -44,6 +44,6 @@ pkgs.stdenv.mkDerivation rec {
     description = "system information on a LCD";
     homepage = "http://192.168.1.35:3000/tony/system-info/";
     license = licenses.unfree;
-    platforms = [ "arm64-linux" ];
+    platforms = [ "aarch64-linux" ];
   };
 }
