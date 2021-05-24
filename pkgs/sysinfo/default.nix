@@ -1,7 +1,9 @@
 {
   fetchurl,
   stdenv,
-  pkgs
+  pkgs,
+  patchelf
+
 }:
 pkgs.stdenv.mkDerivation rec {
   pname = "sysinfo";
@@ -37,7 +39,8 @@ pkgs.stdenv.mkDerivation rec {
     cp ${sysinfoc} $out/bin/sysinfoc
     cp ${netc} $out/bin/netc
     cp ${timec} $out/bin/timec
-    patchelf --set-rpath ${libPath} "$out/bin/*"
+    ${patchelf}/bin/patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/*
     chmod 555 $out/bin/*
   '';
 
