@@ -37,6 +37,7 @@ pkgs.stdenv.mkDerivation rec {
     cp ${sysinfoc} $out/bin/sysinfoc
     cp ${netc} $out/bin/netc
     cp ${timec} $out/bin/timec
+    patchelf --set-rpath ${libPath} "$out/bin/*"
     chmod 555 $out/bin/*
   '';
 
