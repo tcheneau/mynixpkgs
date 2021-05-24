@@ -30,7 +30,12 @@ pkgs.stdenv.mkDerivation rec {
 
   timec = fetchurl {
     url = "http://192.168.1.35:9000/drone/sysinfo/arm64/timec";
-    sha256 = "14q0c0iy4dc9wk0fjn8n9s2d0qv4giwppc43lkf935ky7labfvwp";
+    sha256 = "10pg5lg37z25cjdppdbc77dhx8wwqk2c5aki5r47h86vgczr8ixx";
+  };
+
+  binancec = fetchurl {
+    url = "http://192.168.1.35:9000/drone/sysinfo/arm64/binancec";
+    sha256 = "073bwnjljsdc0kgllglcvqh7xa0jgm2zfqz3lld5fd34mkai32q6";
   };
 
   installPhase = ''
@@ -39,6 +44,7 @@ pkgs.stdenv.mkDerivation rec {
     cp ${sysinfoc} $out/bin/sysinfoc
     cp ${netc} $out/bin/netc
     cp ${timec} $out/bin/timec
+    cp ${binancec} $out/bin/binancec
     chmod 755 $out/bin/*
     ${patchelf}/bin/patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/sysinfod
@@ -48,6 +54,8 @@ pkgs.stdenv.mkDerivation rec {
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/netc
     ${patchelf}/bin/patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/timec
+    ${patchelf}/bin/patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/binancec
   '';
 
   meta = with stdenv.lib; {
