@@ -39,11 +39,15 @@ pkgs.stdenv.mkDerivation rec {
     cp ${sysinfoc} $out/bin/sysinfoc
     cp ${netc} $out/bin/netc
     cp ${timec} $out/bin/timec
-    for mybin in sysinfod sysinfoc netc timec; do
-      ${patchelf}/bin/patchelf \
-        --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/${mybin}
-    done
-    chmod 555 $out/bin/*
+    chmod 755 $out/bin/*
+    ${patchelf}/bin/patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/sysinfod
+    ${patchelf}/bin/patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/sysinfoc
+    ${patchelf}/bin/patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/netc
+    ${patchelf}/bin/patchelf \
+      --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/timec
   '';
 
   meta = with stdenv.lib; {
