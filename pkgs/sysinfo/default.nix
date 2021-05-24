@@ -15,7 +15,7 @@ pkgs.stdenv.mkDerivation rec {
 
   sysinfod = fetchurl {
     url = "http://192.168.1.35:9000/drone/sysinfo/arm64/sysinfod";
-    sha256 = "0fnw4pjzczv01a0gsscwjv67awfn70djpm6q1ycjg3wy3jbkaxi8";
+    sha256 = "107ch75nggcmi287z36r7kdj5ygcbryxaw4dgj0bnsa97jmnzmm2";
   };
 
   sysinfoc = fetchurl {
