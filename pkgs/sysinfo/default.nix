@@ -58,7 +58,7 @@ pkgs.stdenv.mkDerivation rec {
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/binancec
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "system information on a LCD";
     homepage = "http://192.168.1.35:3000/tony/system-info/";
     license = licenses.unfree;

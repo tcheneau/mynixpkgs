@@ -5,7 +5,7 @@
 , qt5, libxml2, libxslt, openldap }:
 
 let
-  inherit (stdenv) lib;
+#  inherit (stdenv) lib;
   LD_LIBRARY_PATH = lib.makeLibraryPath
     [ glib gtk2 gdk-pixbuf alsaLib nss nspr cups libgcrypt qt5.qtbase libxml2 libxslt openldap dbus libXdamage expat ];
 in
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
 #    done
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "To encrypt personnal and sensitive data";
     homepage = "https://www.zedencrypt.com/";
     license = licenses.unfree;
