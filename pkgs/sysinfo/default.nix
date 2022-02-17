@@ -2,8 +2,8 @@
   fetchurl,
   stdenv,
   pkgs,
-  patchelf
-
+  patchelf,
+  lib
 }:
 pkgs.stdenv.mkDerivation rec {
   pname = "sysinfo";
