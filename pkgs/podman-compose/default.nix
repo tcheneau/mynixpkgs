@@ -3,12 +3,13 @@
 buildPythonApplication rec {
   name = "podman_compose";
   pname = "podman-compose";
-  version = "0.1.5";
+  version = "1.0.3";
 
   src = fetchgit {
     url = "https://github.com/containers/podman-compose";
-    rev = "6289d25a42cfdb5dfcac863b1b1b4ace32ce31b7";
-    sha256 = "1v72hl0kj6r0aq21z22y9bm6n7hh48s6xrd6y1rjk9cwnxs4vz8n";
+    rev = "24ec539932580a6bc96d6eb2341141b6d7198b39";
+    # nix-prefetch-url --unpack https://github.com/containers/podman-compose/archive/refs/tags/v1.0.3.tar.gz
+    sha256 = "1yv5ki55j43l0s7rqgiywglghy2dkdsvylzqly8slvkxvkhwwbsa";
   };
 
   doCheck = false;
