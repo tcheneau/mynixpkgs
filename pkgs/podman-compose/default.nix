@@ -16,6 +16,7 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [
     pythonPackages.pyyaml
+    pythonPackages.python-dotenv
   ];
 
   meta = with lib; {
