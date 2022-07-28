@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     # nix-hash --type sha256 --flat --base32
     if stdenv.hostPlatform.system == "i686-linux" then fetchurl {
       url = "https://www.zedencrypt.com/file/get/-/item_key/13802-21-0a970608";
-      sha256 = "0hv1x2lhdmrwzckqiz0lrg95mb49f9099mgwp5f7zjp5kb4llyxs";
+      sha256 = "0ri2x922f63w2zpw978h182prq1ksymv2bkicnd8f69i62q266rw";
     } else fetchurl {
       url = "https://www.zedencrypt.com/file/get/-/item_key/13802-22-1d9a6a64";
-      sha256 = "16gql2a9ld8p6b28pw4ix2jg0ikhpx96nin8w6cvd026cr23x2ng";
+      sha256 = "0vi73z9nsbrq8jkgm7a83mr1ibikp33ymmm8vdgi9p0f9qckv96h";
     };
 
   nativeBuildInputs = [ makeWrapper dpkg ];
