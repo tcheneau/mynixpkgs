@@ -2,15 +2,15 @@
 , dpkg, patchelf
 , gtk2, glib, gdk-pixbuf, alsaLib, nss, nspr, cups, libgcrypt, dbus, systemd
 , libXdamage, expat
-, qt5, libxml2, libxslt, openldap }:
+, qt5, libxml2, libxslt, openldap24, vim }:
 
 let
 #  inherit (stdenv) lib;
   LD_LIBRARY_PATH = lib.makeLibraryPath
-    [ glib gtk2 gdk-pixbuf alsaLib nss nspr cups libgcrypt qt5.qtbase libxml2 libxslt openldap dbus libXdamage expat ];
+    [ glib gtk2 gdk-pixbuf alsaLib nss nspr cups libgcrypt qt5.qtbase libxml2 libxslt openldap24 dbus libXdamage expat ];
 in
 stdenv.mkDerivation rec {
-  version = "2020.4";
+  version = "2022.2";
   pname = "zed-free";
 
   src =
@@ -46,17 +46,17 @@ stdenv.mkDerivation rec {
     
     mkdir -p $out/lib
     ln -s ${stdenv.cc.cc.lib}/lib/libstdc++.so.6 $out/lib/
-#    ln -s ${lib.getLib systemd}/lib/libudev.so.1 $out/lib/libudev.so.0
+    #    ln -s ${lib.getLib systemd}/lib/libudev.so.1 $out/lib/libudev.so.0
 
     # allow changes in hardcoded path
     gcc -fPIC -shared -o fakesyscalls.so $ld_preload -ldl -D_GNU_SOURCE -D_LARGEFILE_SOURCE=1
     mv fakesyscalls.so $out/lib/
 
-
     ${patchelf}/bin/patchelf \
       --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
       $out/bin/zed_free
-     wrapProgram $out/bin/zed_free \
+
+    wrapProgram $out/bin/zed_free \
        --run $out/bin/$(basename ${prepare_primx}) \
        --prefix LD_PRELOAD : $out/lib/fakesyscalls.so \
        --prefix NIX_ZED_USR_PREFIX : $out/share/ \
