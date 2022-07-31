@@ -1,0 +1,21 @@
+Index: ImHex-1.19.3/cmake/build_helpers.cmake
+===================================================================
+--- ImHex-1.19.3.orig/cmake/build_helpers.cmake
++++ ImHex-1.19.3/cmake/build_helpers.cmake
+@@ -299,8 +299,7 @@ function(downloadImHexPatternsFiles dest
+ 
+         FetchContent_Declare(
+             imhex_patterns
+-            GIT_REPOSITORY https://github.com/WerWolv/ImHex-Patterns.git
+-            GIT_TAG master
++	    SOURCE_DIR @imhex_patterns_src@
+         )
+ 
+         FetchContent_Populate(imhex_patterns)
+@@ -311,4 +310,4 @@ function(downloadImHexPatternsFiles dest
+         endforeach ()
+     endif ()
+ 
+-endfunction()
+\ No newline at end of file
++endfunction()
