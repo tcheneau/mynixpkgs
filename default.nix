@@ -8,4 +8,5 @@ self: super:
    custombeat = super.callPackage ./pkgs/beat {};
    sysinfo = super.callPackage ./pkgs/sysinfo {};
    openldap24 = super.callPackage ./pkgs/openldap24 {};
+   imhex = super.callPackage ./pkgs/imhex {};
 }
