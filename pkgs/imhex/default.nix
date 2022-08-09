@@ -1,4 +1,4 @@
-{ lib, gcc12Stdenv, fetchgit, substituteAll, cmake, pkg-config, imgui, libGL, glfw, dbus, freetype, mbedtls, python3, file }:
+{ lib, gcc12Stdenv, fetchgit, substituteAll, cmake, pkg-config, imgui, libGL, glfw, dbus, freetype, mbedtls, python3, file, gtk3, gsettings-desktop-schemas, makeWrapper }:
 
 gcc12Stdenv.mkDerivation rec {
   pname = "ImHex";
@@ -17,12 +17,8 @@ gcc12Stdenv.mkDerivation rec {
       rev = "9e4a1d1d9645c543bd16f2b8a39780bf4080b33a";
     };
 
-  nativeBuildInputs = [ cmake pkg-config python3 ];
-  buildInputs = [ imgui freetype libGL glfw dbus mbedtls file ];
-
-  #sourceRoot = "./source/Client";
-
-  #cmakeFlags = [ "-Wno-dev" ];
+  nativeBuildInputs = [ cmake pkg-config python3 gtk3 makeWrapper ];
+  buildInputs = [ imgui freetype libGL glfw dbus mbedtls file gsettings-desktop-schemas ];
 
   patches = [
     # prevent CMake from trying to get libraries on the Internet
@@ -30,18 +26,14 @@ gcc12Stdenv.mkDerivation rec {
       src = ./no-imhex-patterns-dep.patch;
       imhex_patterns_src = src_imhex_patterns;
     })
+    ./no-xdg.portal.patch
   ];
-
-  #postPatch = ''
-  #  substituteInPlace Constants.h \
-  #    --replace "UNKNOWN = -1" "// UNKNOWN removed since it doesn't fit in char"
-  #'';
-
-  #installPhase = ''
-  #  runHook preInstall
-  #  install -Dm755 -t $out/bin SonyHeadphonesClient
-  #  runHook postInstall
-  #'';
+  
+  postInstall = ''
+    wrapProgram $out/bin/imhex \
+                  --prefix XDG_DATA_DIRS : "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}" \
+                  --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}"
+  '';
 
   meta = with lib; {
     description = "A Hex Editor for Reverse Engineers, Programmers and people who value their retinas when working at 3 AM.";
