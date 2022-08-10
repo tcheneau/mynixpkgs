@@ -1,8 +1,8 @@
-Index: ImHex-1.19.3/cmake/build_helpers.cmake
+Index: ImHex-1.20.0/cmake/build_helpers.cmake
 ===================================================================
---- ImHex-1.19.3.orig/cmake/build_helpers.cmake
-+++ ImHex-1.19.3/cmake/build_helpers.cmake
-@@ -299,8 +299,7 @@ function(downloadImHexPatternsFiles dest
+--- ImHex-1.20.0.orig/cmake/build_helpers.cmake
++++ ImHex-1.20.0/cmake/build_helpers.cmake
+@@ -354,8 +354,7 @@ function(downloadImHexPatternsFiles dest
  
          FetchContent_Declare(
              imhex_patterns
@@ -12,10 +12,3 @@ Index: ImHex-1.19.3/cmake/build_helpers.cmake
          )
  
          FetchContent_Populate(imhex_patterns)
-@@ -311,4 +310,4 @@ function(downloadImHexPatternsFiles dest
-         endforeach ()
-     endif ()
- 
--endfunction()
-\ No newline at end of file
-+endfunction()

@@ -2,19 +2,19 @@
 
 gcc12Stdenv.mkDerivation rec {
   pname = "ImHex";
-  version = "1.19.3";
+  version = "1.20.0";
 
   src = fetchgit {
       url = "https://github.com/WerWolv/ImHex";
-      sha256 = "sha256-SFv5ulyjm5Yf+3Gpx+A74so2YClCJx1sx0LE5fh5eG4=";
-      rev = "54b31b8a556092b219dfa7b7a6ccea72f454b1d0";
+      sha256 = "sha256-GFLjiuMVQqSggehcOCn9W/yCfFWC22u71Oo7SpMsieo=";
+      rev = "f86dffb2f02adc70eb9cc0ff5a214dbae5700aa6";
       fetchSubmodules = true;
     };
 
   src_imhex_patterns = fetchgit {
       url = "https://github.com/WerWolv/ImHex-Patterns";
-      sha256 = "sha256-PSuihZldT7oZJM6YWpb+70B6ywuJagXlbNKp5yDDtJk=";
-      rev = "9e4a1d1d9645c543bd16f2b8a39780bf4080b33a";
+      sha256 = "sha256-2goywWTdR0Dz0RaxwpEuPHIazp1VD6rhluTGZwIJ5VA=";
+      rev = "65f2b7821bc84398671dc3f34d36b093b15c21ae";
     };
 
   nativeBuildInputs = [ cmake pkg-config python3 gtk3 makeWrapper ];
