@@ -29,7 +29,7 @@ pkgs.stdenv.mkDerivation rec {
   meta = with lib; {
     description = "system information on a LCD";
     homepage = "https://github.com/tcheneau/gorfplayer";
-    license = licenses.bsd3;;
+    license = licenses.bsd3;
     platforms = [ "aarch64-linux" ];
   };
 }
