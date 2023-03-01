@@ -15,7 +15,7 @@ pkgs.stdenv.mkDerivation rec {
 
   gorfplayer = fetchurl {
     url = "http://192.168.1.35:9000/drone/gorfplayer/arm64/gorfplayer";
-    sha256 = "1zigj3gxqxa28fs356i5swnsbs6qra9qhhcacdmd8ai9ainl3zdr";
+    sha256 = "0qmvdcfyjq4dhvw1qrqkggphv3kvvvvbdxgbrcarcj4hx0wcdc7r";
   };
 
   installPhase = ''
