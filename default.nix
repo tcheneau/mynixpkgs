@@ -7,7 +7,7 @@ self: super:
    zed_free = super.callPackage ./pkgs/zed-free {};
    custombeat = super.callPackage ./pkgs/beat {};
    sysinfo = super.callPackage ./pkgs/sysinfo {};
-   rfplayer = super.callPackage ./pkgs/rfplayer {};
+   gorfplayer = super.callPackage ./pkgs/gorfplayer {};
    openldap24 = super.callPackage ./pkgs/openldap24 {};
 #   imhex = super.callPackage ./pkgs/imhex {};
 #   anki = super.python3Packages.callPackage ./pkgs/anki {};
