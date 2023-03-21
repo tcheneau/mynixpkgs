@@ -28,6 +28,8 @@
 , rpcsvc-proto
 , python3Packages
 , nixosTests
+, ldb
+, talloc
 
 , enableLDAP ? false, openldap
 , enablePrinting ? false, cups
@@ -95,6 +97,8 @@ stdenv.mkDerivation rec {
     gnutls
     libtasn1
     tdb
+    ldb
+    talloc
   ] ++ optionals stdenv.isLinux [ liburing systemd ]
     ++ optionals enableLDAP [ openldap.dev python3Packages.markdown ]
     ++ optional (enablePrinting && stdenv.isLinux) cups
