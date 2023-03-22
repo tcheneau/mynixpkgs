@@ -16,7 +16,6 @@ rec {
     enableMDNS = true;
     enableDomainController = true;
     enableRegedit = true;
-    enableCephFS = !stdenv.hostPlatform.isAarch64;
    };
 #   imhex = super.callPackage ./pkgs/imhex {};
 #   anki = super.python3Packages.callPackage ./pkgs/anki {};
