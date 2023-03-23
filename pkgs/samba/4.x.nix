@@ -153,7 +153,7 @@ stdenv.mkDerivation rec {
   # module, which works correctly in all cases.
   PYTHON_CONFIG = "/invalid";
 
-  pythonPath = [ python3Packages.dnspython tdb ];
+  pythonPath = [ python3Packages.dnspython tdb ldb talloc ];
 
   preBuild = ''
     export MAKEFLAGS="-j $NIX_BUILD_CORES"
