@@ -17,6 +17,7 @@ rec {
     enableDomainController = true;
     enableRegedit = true;
    };
+   softflowd = super.callPackage ./pkgs/softflowd {};
 #   imhex = super.callPackage ./pkgs/imhex {};
 #   anki = super.python3Packages.callPackage ./pkgs/anki {};
 }
