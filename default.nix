@@ -19,6 +19,7 @@ rec {
     enableRegedit = true;
    };
    softflowd = super.callPackage ./pkgs/softflowd {};
+   forge-mtg = super.callPackage ./pkgs/forge-mtg {};
 #   imhex = super.callPackage ./pkgs/imhex {};
 #   anki = super.python3Packages.callPackage ./pkgs/anki {};
 }
